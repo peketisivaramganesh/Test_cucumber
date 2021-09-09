@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.monochromata.poms</groupId>
+		<artifactId>maven-artifact</artifactId>
+		<version>1.1.82</version>
+		<relativePath/>
+	</parent>
+	<groupId>de.monochromata.cucumber</groupId>
+	<artifactId>reporting-plugin</artifactId>
+	<version>5.0.0</version>
+	<name>Cucumber reporting plug-in</name>
+	<description>A plug-in for Cucumber JVM that renders an HTML report</description>
+	<url>https://gitlab.com/monochromata-de/cucumber-reporting-plugin</url>
+
+	<licenses>
+		<license>
+			<name>GNU LGPLv2.1</name>
+			<url>http://www.gnu.org/licenses/lgpl-2.1.html</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Sebastian Lohmeier</name>
+			<email>sl@monochromata.de</email>
+			<url>https://monochromata.de</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:https://gitlab.com/monochromata-de/cucumber-reporting-plugin.git</connection>
+		<developerConnection>scm:git:https://gitlab.com/monochromata-de/cucumber-reporting-plugin.git</developerConnection>
+		<url>https://gitlab.com/monochromata-de/cucumber-reporting-plugin/tree/master</url>
+	</scm>
+
+	<distributionManagement>
+		<site>
+			<id>ftp.monochromata.de</id>
+			<url>sftp://ftp.monochromata.de/public_html/monochromata.de/maven/sites/${project.groupId}/</url>
+		</site>
+	</distributionManagement>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<maven.compile.source>1.8</maven.compile.source>
+		<maven.compile.target>1.8</maven.compile.target>
+		<maven.site.skip>true</maven.site.skip>
+		<maven.site.deploy.skip>true</maven.site.deploy.skip>
+	</properties>
+
+    <build>
+        <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<optimize>true</optimize>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<debug>true</debug>
+					<compilerArgs>
+					    <arg>-Xlint:unchecked</arg>
+						<!-- Override parent pom to remove flag that is invalid in Java 8 -->
+					    <!-- <arg>- - enable-preview</arg> -->
+				    </compilerArgs>
+				</configuration>
+			</plugin>
+	        <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-surefire-plugin</artifactId>
+	          <version>2.22.2</version>
+	          <configuration>
+			  	<!-- Override parent pom to remove flag that is invalid in Java 8 -->
+				<!-- -showversion is used to effectively override the - - enable-preview -->
+				<!-- it prints the JVM version to standard error and continues -->
+	          	<!-- <argLine>- - enable-preview</argLine> -->
+				  <argLine>-showversion</argLine>
+	          </configuration>
+	        </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<!-- Do not warn on missing @param et al. -->
+					<doclint>all,-missing</doclint>
+					<source>${java.version}</source>
+					<!-- Override parent pom to remove flag that is invalid in Java 8 -->
+					<!-- -serialwarn is used to effectively override the - - enable-preview -->
+					<!-- it prints the JVM version to standard error and continues -->
+					<!-- <additionalOptions> -->
+					<!-- <additionalOption>- - enable-preview</additionalOption> -->
+					<!-- </additionalOptions> -->
+					<additionalOptions>
+						<additionalOption>-serialwarn</additionalOption>
+					</additionalOptions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+    </build>
+
+</project>

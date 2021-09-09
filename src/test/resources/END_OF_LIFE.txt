@@ -1,0 +1,3 @@
+The cucumber-reporting-plugin project has been archived. Switch to alternatives like
+ * https://reports.cucumber.io/
+ * https://gitlab.com/jamietanna/cucumber-reporting-plugin

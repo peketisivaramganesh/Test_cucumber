@@ -1,0 +1,3 @@
+{
+  "extends": [ "gitlab>monochromata-de/renovate-config-presets" ]
+}
